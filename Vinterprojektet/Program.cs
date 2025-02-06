@@ -17,7 +17,6 @@ förbrukningsvarar = categorymenu = 0
 */
 public class Program
 {
-    static float initial = 1.0f;
     public static void Main(string[] arga)
     {
         Raylib.InitWindow(800, 600, "item shop");
@@ -30,6 +29,10 @@ public class Program
         int transition = 0;
 
         int shopframeY = 0;
+
+        int shopmenu = 0;
+
+        int selectedcategory = 0;
 
         //categorymenu logic
 
@@ -120,16 +123,165 @@ public class Program
             }
         }
 
+        static void shopmenuactive(int selCat, int selectedcategory)
+        {
+            //weapons buymenu
+            if (selectedcategory == 0) {
+                
+            //leftwindow
+            Raylib.DrawRectangle(50, 50, 325, 500, Color.SkyBlue);
+
+            int leftwindowX = 325 / 2 + 50;
+
+            Raylib.DrawRectangle(leftwindowX - 10, 200, 20, 100, Color.LightGray);
+
+            //sword
+            Vector2 corner1 = new(leftwindowX, 180);
+            Vector2 corner2 = new(leftwindowX - 10, 200);
+            Vector2 corner3 = new(leftwindowX + 10, 200);
+
+            Raylib.DrawTriangle(corner1, corner2, corner3, Color.LightGray);
+
+            Raylib.DrawRectangle(leftwindowX - 30, 300, 60, 10, Color.Brown);
+            Raylib.DrawRectangle(leftwindowX - 10, 310, 20, 30, Color.Brown);
+
+            //text
+            Raylib.DrawText("Sword", leftwindowX - 38, 100, 25, Color.White);
+
+            //buybutton
+
+            if (selCat == 0)
+            {
+
+                Raylib.DrawRectangle(leftwindowX - 100, 400, 200, 100, Color.White);
+                Raylib.DrawRectangle(leftwindowX - 95, 400 + 5, 190, 90, Color.Lime);
+                Raylib.DrawText("Buy", leftwindowX - 24, 435, 25, Color.White);
+
+            }
+            else
+            {
+                Raylib.DrawRectangle(leftwindowX - 100, 400, 200, 100, Color.Lime);
+                Raylib.DrawText("Buy", leftwindowX - 24, 435, 25, Color.White);
+            }
+
+            //rightwindow
+
+            Raylib.DrawRectangle(425, 50, 325, 500, Color.SkyBlue);
+
+
+            //backshield
+            int rightwindowX = 325 / 2 + 425;
+            Raylib.DrawRectangle(rightwindowX - 89, 135, 180, 115, Color.LightGray);
+            
+            Vector2 backshieldcorner1 = new(rightwindowX + 90, 250);
+            Vector2 backshieldcorner2 = new(rightwindowX - 90, 250);
+            Vector2 backshieldcorner3 = new(rightwindowX, 368);
+            Raylib.DrawTriangle(backshieldcorner1, backshieldcorner2, backshieldcorner3, Color.LightGray);
+
+            //shield
+            Raylib.DrawRectangle(rightwindowX - 75, 150, 150, 100, Color.DarkBrown);
+            
+            Vector2 shieldcorner1 = new(rightwindowX + 75, 250);
+            Vector2 shieldcorner2 = new(rightwindowX - 75, 250);
+            Vector2 shieldcorner3 = new(rightwindowX, 350);
+            Raylib.DrawTriangle(shieldcorner1, shieldcorner2, shieldcorner3, Color.DarkBrown);
+
+            //text
+            Raylib.DrawText("Shield", rightwindowX - 38, 100, 25, Color.White);
+
+            //buybutton
+
+            if (selCat == 1)
+            {
+
+                Raylib.DrawRectangle(rightwindowX - 100, 400, 200, 100, Color.White);
+                Raylib.DrawRectangle(rightwindowX - 95, 400 + 5, 190, 90, Color.Lime);
+                Raylib.DrawText("Buy", rightwindowX - 24, 435, 25, Color.White);
+
+            }
+            else
+            {
+                Raylib.DrawRectangle(rightwindowX - 100, 400, 200, 100, Color.Lime);
+                Raylib.DrawText("Buy", rightwindowX - 24, 435, 25, Color.White);
+            }
+            }
+           
+
+           //consumables buymenu
+            if (selectedcategory == 1) {
+
+            //leftwindow
+            Raylib.DrawRectangle(50, 50, 325, 500, Color.SkyBlue);
+
+            //potion
+            int leftwindowX2 = 325 / 2 + 50;
+
+            Raylib.DrawCircle(leftwindowX2, 300, 50, Color.White);
+            Raylib.DrawCircle(leftwindowX2, 300, 45, Color.Purple);
+
+            Raylib.DrawRectangle(leftwindowX2 - 10, 222, 20, 35, Color.Brown);
+            Raylib.DrawRectangle(leftwindowX2 - 15, 212, 30, 10, Color.Brown);
+
+            //text
+            Raylib.DrawText("Potion", leftwindowX2 - 38, 100, 25, Color.White);
+
+            //buybutton
+
+            if (selCat == 0)
+            {
+
+                Raylib.DrawRectangle(leftwindowX2 - 100, 400, 200, 100, Color.White);
+                Raylib.DrawRectangle(leftwindowX2 - 95, 400 + 5, 190, 90, Color.Lime);
+                Raylib.DrawText("Buy", leftwindowX2 - 24, 435, 25, Color.White);
+
+            }
+            else
+            {
+                Raylib.DrawRectangle(leftwindowX2 - 100, 400, 200, 100, Color.Lime);
+                Raylib.DrawText("Buy", leftwindowX2 - 24, 435, 25, Color.White);
+            }
+
+
+            //rightwindow
+            Raylib.DrawRectangle(425, 50, 325, 500, Color.SkyBlue);
+
+            //health kit
+            int rightwindowX2 = 325 / 2 + 425;
+
+            Raylib.DrawRectangle(rightwindowX2 - 100, 200, 200, 100, Color.LightGray);
+
+            //text
+
+            Raylib.DrawText("Health Kit", rightwindowX2 - 60, 100, 25, Color.White);
+
+            //buybutton
+
+            if (selCat == 1)
+            {
+
+                Raylib.DrawRectangle(rightwindowX2 - 100, 400, 200, 100, Color.White);
+                Raylib.DrawRectangle(rightwindowX2 - 95, 400 + 5, 190, 90, Color.Lime);
+                Raylib.DrawText("Buy", rightwindowX2 - 24, 435, 25, Color.White);
+
+            }
+            else
+            {
+                Raylib.DrawRectangle(rightwindowX2 - 100, 400, 200, 100, Color.Lime);
+                Raylib.DrawText("Buy", rightwindowX2 - 24, 435, 25, Color.White);
+            }
+                
+            }
+           
+        }
+
+
         static int transitionfunction(int shopframeY)
         {
-            if (shopframeY <= 600)
-            {
-                initial *= 0.95f;
-                shopframeY = +(int)initial;
-                Console.WriteLine(shopframeY);
-            }
-            //shopframeY = Math.Clamp(shopframeY, 0, 600);
-            Raylib.DrawRectangle(0, shopframeY, 800, 600, Color.DarkBrown);
+
+            shopframeY += 20;
+            Console.WriteLine(shopframeY);
+            Raylib.DrawRectangle(0, shopframeY - 600, 800, 600, Color.DarkBrown);
+
             return shopframeY;
         }
 
@@ -145,19 +297,32 @@ public class Program
                 categorymenuactive(hoverselect);
                 if (Raylib.IsKeyPressed(KeyboardKey.Space) || Raylib.IsKeyPressed(KeyboardKey.Enter))
                 {
+                    selectedcategory = hoverselect;
+                    hoverselect = 0;
                     categorymenu = 0;
                     transition = 0;
                 }
             }
             else
             {
+
+                if (shopmenu == 1) {
+                    
+                    hoverselect = selectfunction(hoverselect);
+                    shopmenuactive(hoverselect, selectedcategory);
+                }
                 if (transition == 0)
                 {
                     shopframeY = transitionfunction(shopframeY);
-                    transitionfunction(shopframeY);
+                    if (shopframeY == 600)
+                    {
+                        shopmenu = 1;
+                    }
+                    if (shopframeY >= 1200)
+                    {
+                        transition = 1;
+                    }
                 }
-
-
             }
             Raylib.EndDrawing();
 
