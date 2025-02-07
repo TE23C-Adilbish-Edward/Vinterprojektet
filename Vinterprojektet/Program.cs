@@ -190,7 +190,6 @@ public class Program
             Raylib.DrawText("Shield", rightwindowX - 38, 100, 25, Color.White);
 
             //buybutton
-
             if (selCat == 1)
             {
 
@@ -226,7 +225,6 @@ public class Program
             Raylib.DrawText("Potion", leftwindowX2 - 38, 100, 25, Color.White);
 
             //buybutton
-
             if (selCat == 0)
             {
 
@@ -248,14 +246,29 @@ public class Program
             //health kit
             int rightwindowX2 = 325 / 2 + 425;
 
-            Raylib.DrawRectangle(rightwindowX2 - 100, 200, 200, 100, Color.LightGray);
+            Raylib.DrawRectangle(rightwindowX2 - 100, 230, 200, 100, Color.LightGray);
+
+            //handle
+            Raylib.DrawRectangle(rightwindowX2 - 60, 180, 120, 20, Color.LightGray);
+
+            Raylib.DrawRectangle(rightwindowX2 - 60, 180, 20, 60, Color.LightGray);
+            Raylib.DrawRectangle(rightwindowX2 + 40, 180, 20, 60, Color.LightGray);
+
+            //whiteparts
+            Raylib.DrawRectangle(rightwindowX2 - 55, 185, 110, 10, Color.White);
+            Raylib.DrawRectangle(rightwindowX2 + 45, 190, 10, 60, Color.White);
+            Raylib.DrawRectangle(rightwindowX2 - 55, 190, 10, 60, Color.White);
+            Raylib.DrawRectangle(rightwindowX2 - 95, 235, 190, 90, Color.White);
+
+            //cross
+            Raylib.DrawRectangle(rightwindowX2 - 5, 250, 10, 50, Color.Red);
+            Raylib.DrawRectangle(rightwindowX2 - 25, 270, 50, 10, Color.Red);
+            
 
             //text
-
             Raylib.DrawText("Health Kit", rightwindowX2 - 60, 100, 25, Color.White);
 
             //buybutton
-
             if (selCat == 1)
             {
 
@@ -305,14 +318,16 @@ public class Program
             }
             else
             {
-
+                    if (shopmenu == 0) {
+                        categorymenuactive(hoverselect);
+                    }
                 if (shopmenu == 1) {
                     
                     hoverselect = selectfunction(hoverselect);
                     shopmenuactive(hoverselect, selectedcategory);
                 }
                 if (transition == 0)
-                {
+                {   
                     shopframeY = transitionfunction(shopframeY);
                     if (shopframeY == 600)
                     {
@@ -322,6 +337,7 @@ public class Program
                     {
                         transition = 1;
                     }
+
                 }
             }
             Raylib.EndDrawing();
