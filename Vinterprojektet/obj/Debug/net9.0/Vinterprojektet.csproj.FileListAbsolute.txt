@@ -21,3 +21,8 @@ C:\Users\edward.adilbishvile\Desktop\kod\Vinterprojektet\Vinterprojektet\obj\Deb
 C:\Users\edward.adilbishvile\Desktop\kod\Vinterprojektet\Vinterprojektet\obj\Debug\net9.0\Vinterprojektet.pdb
 C:\Users\edward.adilbishvile\Desktop\kod\Vinterprojektet\Vinterprojektet\obj\Debug\net9.0\Vinterprojektet.genruntimeconfig.cache
 C:\Users\edward.adilbishvile\Desktop\kod\Vinterprojektet\Vinterprojektet\obj\Debug\net9.0\ref\Vinterprojektet.dll
+C:\Users\edward.adilbishvile\Desktop\kod\Vinterprojektet\Vinterprojektet\bin\Debug\net9.0\mus_badnote2.ogg
+C:\Users\edward.adilbishvile\Desktop\kod\Vinterprojektet\Vinterprojektet\bin\Debug\net9.0\snd_bell.ogg
+C:\Users\edward.adilbishvile\Desktop\kod\Vinterprojektet\Vinterprojektet\bin\Debug\net9.0\snd_bomb.ogg
+C:\Users\edward.adilbishvile\Desktop\kod\Vinterprojektet\Vinterprojektet\bin\Debug\net9.0\snd_buyitem.ogg
+C:\Users\edward.adilbishvile\Desktop\kod\Vinterprojektet\Vinterprojektet\bin\Debug\net9.0\snd_tem.ogg

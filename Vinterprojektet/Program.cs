@@ -2,6 +2,7 @@
 using System.Numerics;
 using Raylib_cs;
 
+
 /*
 
 Två katoriger, vapen och förbrukningsvaror
@@ -19,8 +20,16 @@ public class Program
 {
     public static void Main(string[] arga)
     {
+        Raylib.InitAudioDevice();   
+        Sound buyitem = Raylib.LoadSound("snd_buyitem.ogg");
+        Sound select = Raylib.LoadSound("snd_bell.ogg");
+        Sound back = Raylib.LoadSound("snd_bomb.ogg");
+        Sound nomoney = Raylib.LoadSound("mus_badnote.ogg");
+        Sound switching = Raylib.LoadSound("snd_tem.ogg");
+
         Raylib.InitWindow(800, 600, "item shop");
         Raylib.SetTargetFPS(60);
+        
 
         int categorymenu = 1;
 
@@ -34,23 +43,28 @@ public class Program
 
         int selectedcategory = 0;
 
+        int money = 1000;
+
         //categorymenu logic
 
-        static int selectfunction(int hoverselect)
+        static int selectfunction(int hoverselect, Sound switching)
         {
             if (Raylib.IsKeyPressed(KeyboardKey.Right) || Raylib.IsKeyPressed(KeyboardKey.D))
             {
                 hoverselect = 1;
+                Raylib.PlaySound(switching);
             }
             if (Raylib.IsKeyPressed(KeyboardKey.Left) || Raylib.IsKeyPressed(KeyboardKey.A))
             {
                 hoverselect = 0;
+                Raylib.PlaySound(switching);
             }
             return hoverselect;
         }
 
-        static void categorymenuactive(int selCat)
+        static void categorymenuactive(int selCat, int money)
         {
+            Raylib.DrawText("Money: " + money + "$", 0, 0, 50, Color.White);
             //leftwindow weapons
             Raylib.DrawRectangle(50, 50, 325, 500, Color.SkyBlue);
 
@@ -123,8 +137,9 @@ public class Program
             }
         }
 
-        static void shopmenuactive(int selCat, int selectedcategory)
+        static void shopmenuactive(int selCat, int selectedcategory, int money)
         {
+            Raylib.DrawText("Money: " + money + "$", 0, 0, 50, Color.White);
             //weapons buymenu
             if (selectedcategory == 0) {
                 
@@ -147,6 +162,7 @@ public class Program
 
             //text
             Raylib.DrawText("Sword", leftwindowX - 38, 100, 25, Color.White);
+            Raylib.DrawText("350$", leftwindowX - 26, 365, 25, Color.White);
 
             //buybutton
 
@@ -188,11 +204,11 @@ public class Program
 
             //text
             Raylib.DrawText("Shield", rightwindowX - 38, 100, 25, Color.White);
+            Raylib.DrawText("200$", rightwindowX - 26, 365, 25, Color.White);
 
             //buybutton
             if (selCat == 1)
             {
-
                 Raylib.DrawRectangle(rightwindowX - 100, 400, 200, 100, Color.White);
                 Raylib.DrawRectangle(rightwindowX - 95, 400 + 5, 190, 90, Color.Lime);
                 Raylib.DrawText("Buy", rightwindowX - 24, 435, 25, Color.White);
@@ -223,6 +239,7 @@ public class Program
 
             //text
             Raylib.DrawText("Potion", leftwindowX2 - 38, 100, 25, Color.White);
+            Raylib.DrawText("80$", leftwindowX2 - 19, 365, 25, Color.White);
 
             //buybutton
             if (selCat == 0)
@@ -267,6 +284,7 @@ public class Program
 
             //text
             Raylib.DrawText("Health Kit", rightwindowX2 - 60, 100, 25, Color.White);
+            Raylib.DrawText("150$", rightwindowX2 - 26, 365, 25, Color.White);
 
             //buybutton
             if (selCat == 1)
@@ -306,12 +324,12 @@ public class Program
 
             if (categorymenu == 1)
             {
-                hoverselect = selectfunction(hoverselect);
-                categorymenuactive(hoverselect);
+                hoverselect = selectfunction(hoverselect, switching);
+                categorymenuactive(hoverselect, money);
                 if (Raylib.IsKeyPressed(KeyboardKey.Space) || Raylib.IsKeyPressed(KeyboardKey.Enter))
-                {
+                {   
+                    Raylib.PlaySound(select);
                     selectedcategory = hoverselect;
-                    hoverselect = 0;
                     categorymenu = 0;
                     transition = 0;
                 }
@@ -319,12 +337,59 @@ public class Program
             else
             {
                     if (shopmenu == 0) {
-                        categorymenuactive(hoverselect);
+                        categorymenuactive(hoverselect, money);
                     }
                 if (shopmenu == 1) {
                     
-                    hoverselect = selectfunction(hoverselect);
-                    shopmenuactive(hoverselect, selectedcategory);
+                    hoverselect = selectfunction(hoverselect, switching);
+                    shopmenuactive(hoverselect, selectedcategory, money);
+
+                    if (Raylib.IsKeyPressed(KeyboardKey.Backspace)) {
+                        shopframeY = 0;
+                        shopmenu = 0;
+                        categorymenu = 1;
+                        Raylib.PlaySound(back);
+                    }
+                    if (Raylib.IsKeyPressed(KeyboardKey.Space) || Raylib.IsKeyPressed(KeyboardKey.Enter)) {
+                        
+                        if (selectedcategory == 0) {
+                            if (hoverselect == 0) {
+                                if (money >= 350) {
+                                    Raylib.PlaySound(buyitem);
+                                    money = money - 350;
+                                } else {
+                                    Raylib.PlaySound(nomoney);
+                                }
+                            }
+                            if (hoverselect == 1) {
+                                if (money >= 200) {
+                                    Raylib.PlaySound(buyitem);
+                                    money = money - 200;
+                                } else {
+                                    Raylib.PlaySound(nomoney);
+                                }
+                            }
+                        }
+                        if (selectedcategory == 1) {
+                            if (hoverselect == 0) {
+                                if (money >= 80) {
+                                    Raylib.PlaySound(buyitem);
+                                    money = money - 80;
+                                } else {
+                                    Raylib.PlaySound(nomoney);
+                                }
+                            }
+                            if (hoverselect == 1) {
+                                if (money >= 150) {
+                                    Raylib.PlaySound(buyitem);
+                                    money = money - 150;
+                                } else {
+                                    Raylib.PlaySound(nomoney);
+                                }
+                            }
+                        }
+                        Raylib.PlaySound(buyitem);
+                    }
                 }
                 if (transition == 0)
                 {   
@@ -332,6 +397,7 @@ public class Program
                     if (shopframeY == 600)
                     {
                         shopmenu = 1;
+                        hoverselect = 0;
                     }
                     if (shopframeY >= 1200)
                     {

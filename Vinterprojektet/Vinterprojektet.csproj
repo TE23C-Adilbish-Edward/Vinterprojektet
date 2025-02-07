@@ -10,5 +10,8 @@
   <ItemGroup>
     <PackageReference Include="Raylib-cs" Version="7.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <content Include="*.ogg" CopyToOutputDirectory = "Always"/>
+  </ItemGroup>
 
 </Project>
