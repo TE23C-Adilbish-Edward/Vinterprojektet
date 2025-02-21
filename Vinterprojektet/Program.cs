@@ -24,7 +24,7 @@ public class Program
         Sound buyitem = Raylib.LoadSound("snd_buyitem.ogg");
         Sound select = Raylib.LoadSound("snd_bell.ogg");
         Sound back = Raylib.LoadSound("snd_bomb.ogg");
-        Sound nomoney = Raylib.LoadSound("mus_badnote.ogg");
+        Sound nomoney = Raylib.LoadSound("mus_badnote1.ogg");
         Sound switching = Raylib.LoadSound("snd_tem.ogg");
 
         Raylib.InitWindow(800, 600, "item shop");
@@ -44,6 +44,8 @@ public class Program
         int selectedcategory = 0;
 
         int money = 1000;
+
+        int warningtimer = 0;
 
         //categorymenu logic
 
@@ -305,12 +307,18 @@ public class Program
            
         }
 
+        static int nomoneywarning(int warningtimer) {
+            if (warningtimer > 0) {
+                warningtimer = warningtimer - 1;
+            }
+            
+            return warningtimer;
+        }
 
         static int transitionfunction(int shopframeY)
         {
 
             shopframeY += 20;
-            Console.WriteLine(shopframeY);
             Raylib.DrawRectangle(0, shopframeY - 600, 800, 600, Color.DarkBrown);
 
             return shopframeY;
@@ -358,6 +366,7 @@ public class Program
                                     Raylib.PlaySound(buyitem);
                                     money = money - 350;
                                 } else {
+                                    warningtimer = 50;
                                     Raylib.PlaySound(nomoney);
                                 }
                             }
@@ -366,6 +375,7 @@ public class Program
                                     Raylib.PlaySound(buyitem);
                                     money = money - 200;
                                 } else {
+                                    warningtimer = 50;
                                     Raylib.PlaySound(nomoney);
                                 }
                             }
@@ -376,6 +386,7 @@ public class Program
                                     Raylib.PlaySound(buyitem);
                                     money = money - 80;
                                 } else {
+                                    warningtimer = 50;
                                     Raylib.PlaySound(nomoney);
                                 }
                             }
@@ -384,11 +395,11 @@ public class Program
                                     Raylib.PlaySound(buyitem);
                                     money = money - 150;
                                 } else {
+                                    warningtimer = 50;
                                     Raylib.PlaySound(nomoney);
                                 }
                             }
                         }
-                        Raylib.PlaySound(buyitem);
                     }
                 }
                 if (transition == 0)
@@ -404,6 +415,10 @@ public class Program
                         transition = 1;
                     }
 
+                }
+                if (warningtimer > 0) {
+                    Raylib.DrawText("You do not have sufficient funds", 120, 250, 30, Color.Red);
+                    warningtimer = nomoneywarning(warningtimer);
                 }
             }
             Raylib.EndDrawing();
