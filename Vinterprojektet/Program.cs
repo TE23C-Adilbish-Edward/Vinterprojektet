@@ -20,6 +20,7 @@ public class Program
 {
     public static void Main(string[] arga)
     {
+        //ljud och sound effects
         Raylib.InitAudioDevice();   
         Sound buyitem = Raylib.LoadSound("snd_buyitem.ogg");
         Sound select = Raylib.LoadSound("snd_bell.ogg");
@@ -30,6 +31,7 @@ public class Program
         Raylib.InitWindow(800, 600, "item shop");
         Raylib.SetTargetFPS(60);
         
+        //variabler
 
         int categorymenu = 1;
 
@@ -208,7 +210,7 @@ public class Program
             Raylib.DrawText("Shield", rightwindowX - 38, 100, 25, Color.White);
             Raylib.DrawText("200$", rightwindowX - 26, 365, 25, Color.White);
 
-            //buybutton
+            //buybutton select graphic
             if (selCat == 1)
             {
                 Raylib.DrawRectangle(rightwindowX - 100, 400, 200, 100, Color.White);
@@ -306,7 +308,8 @@ public class Program
             }
            
         }
-
+        
+        //varning om man har för lite pengar
         static int nomoneywarning(int warningtimer) {
             if (warningtimer > 0) {
                 warningtimer = warningtimer - 1;
@@ -315,6 +318,7 @@ public class Program
             return warningtimer;
         }
 
+        //transition graphic
         static int transitionfunction(int shopframeY)
         {
 
@@ -324,16 +328,19 @@ public class Program
             return shopframeY;
         }
 
+        //själva while loopen som håller applikationen uppe
         while (Raylib.WindowShouldClose() == false)
         {
             Raylib.BeginDrawing();
 
             Raylib.ClearBackground(Color.Blue);
 
+            //kollar om kategorimenyn är på
             if (categorymenu == 1)
             {
                 hoverselect = selectfunction(hoverselect, switching);
                 categorymenuactive(hoverselect, money);
+                //select funktion
                 if (Raylib.IsKeyPressed(KeyboardKey.Space) || Raylib.IsKeyPressed(KeyboardKey.Enter))
                 {   
                     Raylib.PlaySound(select);
@@ -342,6 +349,7 @@ public class Program
                     transition = 0;
                 }
             }
+            //om kategorimenyn inte är på så körs:
             else
             {
                     if (shopmenu == 0) {
@@ -351,13 +359,14 @@ public class Program
                     
                     hoverselect = selectfunction(hoverselect, switching);
                     shopmenuactive(hoverselect, selectedcategory, money);
-
+                    //back funktion
                     if (Raylib.IsKeyPressed(KeyboardKey.Backspace)) {
                         shopframeY = 0;
                         shopmenu = 0;
                         categorymenu = 1;
                         Raylib.PlaySound(back);
                     }
+                    //köp funktion
                     if (Raylib.IsKeyPressed(KeyboardKey.Space) || Raylib.IsKeyPressed(KeyboardKey.Enter)) {
                         
                         if (selectedcategory == 0) {
@@ -402,6 +411,7 @@ public class Program
                         }
                     }
                 }
+                //transitions logik
                 if (transition == 0)
                 {   
                     shopframeY = transitionfunction(shopframeY);
@@ -416,11 +426,13 @@ public class Program
                     }
 
                 }
+                //varning logik
                 if (warningtimer > 0) {
                     Raylib.DrawText("You do not have sufficient funds", 120, 250, 30, Color.Red);
                     warningtimer = nomoneywarning(warningtimer);
                 }
             }
+            //slut
             Raylib.EndDrawing();
 
         }
