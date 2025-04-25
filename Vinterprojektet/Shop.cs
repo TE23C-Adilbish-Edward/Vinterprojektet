@@ -1,6 +1,6 @@
+using Microsoft.VisualBasic;
 using Raylib_cs;
 using System.Numerics;
-
 //Fil reserverad för funktioner
 
 public class Shop
@@ -176,18 +176,9 @@ public class Shop
 
     }
     
-    //En varning i form av text som visas när man inte har råd med den valda produkten
-    public static int NoMoneyWarning(int warningtimer)
-    {
-        if (warningtimer > 0)
-        {
-            warningtimer = warningtimer - 1;
-        }
-
-        return warningtimer;
-    }
-
     //Funktionen ändrar vald kategori eller vald produkt om spelaren trycker vänster eller högerpil
+
+    //Uppfyller kriteriet "En metod som returnerar resultat och tar emot flera parametrar"
     public static int SelectFunction(int hoverselect, Sound switching)
         {
             if (Raylib.IsKeyPressed(KeyboardKey.Right) || Raylib.IsKeyPressed(KeyboardKey.D))
@@ -288,4 +279,52 @@ public class Shop
 
             return shopframeY;
         }
+
+    //En "popup" med instruktioner för att informera spelaren vad man kan göra
+    public static bool InstructionMenu(bool instructionMenu)
+    {
+        Raylib.DrawRectangle(0, 0, 800, 600, Color.White);
+
+        Raylib.DrawText("Välkommen till shoppen!", 130, 0, 50, Color.Black);
+
+        Raylib.DrawText("Här kan du köpa items från två olika kategorier.", 130, 100, 25, Color.Black);
+
+        Raylib.DrawText("För att välja en kategori tryck SPACE eller ENTER", 100, 150, 25, Color.Black);
+
+        Raylib.DrawText("För att växla mellan alternativen använd VÄNSTERPIL eller HÖGERPIL", 30, 200, 20, Color.Black);
+
+        Raylib.DrawText("A och D fungerar också", 260, 220, 20, Color.Black);
+
+        Raylib.DrawText("När du har valt en kategori kan du välja att", 140, 270, 25, Color.Black);
+
+        Raylib.DrawText("köpa en produkt med SPACE eller ENTER", 150, 290, 25, Color.Black);
+
+        Raylib.DrawText("För att återvända till kategorimenyn tryck BACKSPACE", 60, 340, 25, Color.Black);
+
+        Raylib.DrawText("Lycka till! Du har nu fått $1000", 140, 390, 30,Color.Black);
+
+        Raylib.DrawText("Tryck ENTER eller SPACE för att fortsätta till shoppen", 50, 500, 25, Color.Gold);
+
+         if (Raylib.IsKeyPressed(KeyboardKey.Space) || Raylib.IsKeyPressed(KeyboardKey.Enter))
+                {   
+                    instructionMenu = false;
+                }
+        return instructionMenu;
+    }
+
+    //En timer som visar text i en viss mängd tid
+    public static int Timer(int timer, Color color, string lastPurchased)
+    {
+        for (int i = 0; i < timer; i++) {
+            
+            if (lastPurchased.Length > 0) {
+                Raylib.DrawText("Du köpte " + lastPurchased, 300, 250, 30, color);
+            } else
+            {
+                Raylib.DrawText("Du har inte råd till det här", 200, 250, 30, color);
+            }
+            }
+        timer--;   
+        return timer;
+    }
 }
